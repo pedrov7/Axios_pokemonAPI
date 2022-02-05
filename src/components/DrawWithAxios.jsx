@@ -4,12 +4,15 @@ import axios from 'axios';
 export const DrawWithAxios = () => {
 
     const [list, setList] = useState([]);
+    const [show, setShow] = useState(false);
    
 
     const handleOnClick = () => {
         axios.get('https://pokeapi.co/api/v2/pokemon?offset=0&limit=1200')
                 .then(response => { setList(response.data.results) })  
                 .catch( e => alert(e))
+
+                setShow(!show);
     }
 
 
@@ -23,7 +26,7 @@ export const DrawWithAxios = () => {
             <br></br>
             <br></br>
             <div className="list-group">
-                {list.length > 0 && list.map((pokeName, index) => {
+                {show && list.length > 0 && list.map((pokeName, index) => {
                     // return (<li key={index}>{pokeName.name}</li>)
                     return(<button key = {index} type="button" className="list-group-item list-group-item-action">{pokeName.name}</button>)
                 }
